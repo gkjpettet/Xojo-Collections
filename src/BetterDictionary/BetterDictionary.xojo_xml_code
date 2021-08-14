@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RBProject version="2021r2.1" FormatVersion="2" MinIDEVersion="20070100">
+<block type="Module" ID="670492671">
+ <ObjName>BetterDictionary</ObjName>
+ <ObjContainerID>472795135</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>Dictionary</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Value</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Assigns a value to the [key] item in the dictionary.</CodeDescription>
+  <PartID>1423630335</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Value(key As Variant, Assigns v As Variant)</SourceLine>
+   <SourceLine>/// Assigns a value to the [key] item in the dictionary.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// We _may_ need to encode the key.</SourceLine>
+   <SourceLine>Super.Value(EncodeKey(key)) = v</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>// We don't store `String` keys, only `Text`.</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>Super.Value(AsText(key)) = v</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Super.Value(key) = v</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant, Assigns v As Variant</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <PartID>6715391</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(caseSensitive As Boolean = True, ParamArray entries() As Pair)</SourceLine>
+   <SourceLine>Super.Constructor</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mCaseSensitive = caseSensitive</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>For Each entry As Pair In entries</SourceLine>
+   <SourceLine>Self.Value(entry.Left) = entry.Right</SourceLine>
+   <SourceLine>Next entry</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>caseSensitive As Boolean = True, ParamArray entries() As Pair</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>EncodeKey</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Encodes [key] if required.</CodeDescription>
+  <PartID>1899182079</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function EncodeKey(key As Variant) As Variant</SourceLine>
+   <SourceLine>/// Encodes [key] if required.</SourceLine>
+   <SourceLine>///</SourceLine>
+   <SourceLine>/// If we're case-sensitive, we encode all "textual" (`String` or `Text`) </SourceLine>
+   <SourceLine>/// keys as hex strings. Other key types are left as-is.</SourceLine>
+   <SourceLine>/// If we're not case-sensitive then we store all textual keys as `Text`.</SourceLine>
+   <SourceLine>/// We do this so that we can compare the keys that may be `Text` with </SourceLine>
+   <SourceLine>/// IDE string literals.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeText Or key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>// Textual keys become hex encoded strings.</SourceLine>
+   <SourceLine>Return EncodeHex(key)</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>// Leave this key alone.</SourceLine>
+   <SourceLine>Return key</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Not case-sensitive.</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>Return AsText(key)</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return key</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant</ItemParams>
+  <ItemResult>Variant</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AsText</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Returns [s] as a `Text` object.</CodeDescription>
+  <PartID>1318580223</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsText(s As String) As Text</SourceLine>
+   <SourceLine>/// Returns [s] as a `Text` object.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Return s.ToText</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>s As String</ItemParams>
+  <ItemResult>Text</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DecodeKey</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Decodes the passed key.</CodeDescription>
+  <PartID>292820991</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function DecodeKey(key As Variant) As Variant</SourceLine>
+   <SourceLine>/// Decodes [key].</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>Return DecodeHex(key)</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return key</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return key</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant</ItemParams>
+  <ItemResult>Variant</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HasKey</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>True if [key] is in the dictionary.</CodeDescription>
+  <PartID>2035752959</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HasKey(key As Variant) As Boolean</SourceLine>
+   <SourceLine>/// True if [key] is in the dictionary.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// Keys _may_ be encoded when case sensitive.</SourceLine>
+   <SourceLine>Return Super.HasKey(EncodeKey(key))</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>// When case insensitive, `String` keys are stored as `Text`.</SourceLine>
+   <SourceLine>Return Super.HasKey(AsText(key))</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return Super.HasKey(key)</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Lookup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Looks up the passed value of [key].</CodeDescription>
+  <PartID>263272447</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Lookup(key As Variant, defaultValue As Variant) As Variant</SourceLine>
+   <SourceLine>/// Looks up the passed value of [key].</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// When case sensitive, keys _may_ be encoded.</SourceLine>
+   <SourceLine>Return Super.Lookup(EncodeKey(key), defaultValue)</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>// When case insensitive, `String` keys are stored as `Text`.</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>Return Super.Lookup(AsText(key), defaultValue)</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return Super.Lookup(key, defaultValue)</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant, defaultValue As Variant</ItemParams>
+  <ItemResult>Variant</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Value</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Retrieves the value associated with [key].</CodeDescription>
+  <PartID>1230043135</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Value(key As Variant) As Variant</SourceLine>
+   <SourceLine>/// Retrieves the value associated with [key].</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// We _may_ need to encode the key.</SourceLine>
+   <SourceLine>Return Super.Value(EncodeKey(key))</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>// We store `String` keys as `Text`.</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>Return Super.Value(AsText(key))</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return Super.Value(key)</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant</ItemParams>
+  <ItemResult>Variant</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Key</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Returns the value of [key] for the [index]th sequential item in this Dictionary.</CodeDescription>
+  <PartID>1999075327</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Key(index As Integer) As Variant</SourceLine>
+   <SourceLine>/// Returns the value of [key] for the [index]th sequential item in this </SourceLine>
+   <SourceLine>/// Dictionary.</SourceLine>
+   <SourceLine>///</SourceLine>
+   <SourceLine>/// The first item is numbered zero.</SourceLine>
+   <SourceLine>/// If there is no [index]th item in the dictionary, an `OutOfBoundsException`</SourceLine>
+   <SourceLine>/// is raised.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// We need to decode the key first.</SourceLine>
+   <SourceLine>Var encodedKey As Variant = Super.Key(index)</SourceLine>
+   <SourceLine>Return DecodeKey(encodedKey)</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return Super.Key(index)</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>index As Integer</ItemParams>
+  <ItemResult>Variant</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Keys</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Returns all the keys in this dictionary as an array of Variants.</CodeDescription>
+  <PartID>136423423</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Keys() As Variant()</SourceLine>
+   <SourceLine>/// Returns all the keys in this dictionary as an array of Variants.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Var result() As Variant</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// Keys need to be decoded as textual keys are hex encoded.</SourceLine>
+   <SourceLine>Var encodedKeys() as Variant = Super.Keys()</SourceLine>
+   <SourceLine>For Each encodedKey As Variant In encodedKeys</SourceLine>
+   <SourceLine>result.Add(DecodeKey(encodedKey))</SourceLine>
+   <SourceLine>Next encodedKey</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>result = Super.Keys</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Return result</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams></ItemParams>
+  <ItemResult>Variant()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Returns a shallow clone of this dictionary</CodeDescription>
+  <PartID>494530559</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Clone() As BetterDictionary</SourceLine>
+   <SourceLine>/// Returns a shallow clone of this dictionary</SourceLine>
+   <SourceLine>///</SourceLine>
+   <SourceLine>/// Results in a new BetterDictionary that can be manipulated independently.</SourceLine>
+   <SourceLine>/// A shallow clone means that if a value or key refers to a class instance, </SourceLine>
+   <SourceLine>/// its contents are not also cloned.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Var bd As New BetterDictionary(mCaseSensitive)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>For Each entry As DictionaryEntry In Self</SourceLine>
+   <SourceLine>bd.Value(entry.Key) = entry.Value</SourceLine>
+   <SourceLine>Next entry</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Return bd</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams></ItemParams>
+  <ItemResult>BetterDictionary</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Iterator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <PartID>1630076927</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Iterator() As Iterator</SourceLine>
+   <SourceLine>Return New BetterDictionaryIterator(Self)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams></ItemParams>
+  <ItemResult>Iterator</ItemResult>
+ </Method>
+ <Property>
+  <ItemName>CaseSensitive</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <PartID>220927999</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Property CaseSensitive As Boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>CaseSensitive As Boolean</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>Return mCaseSensitive</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mCaseSensitive</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <PartID>990748671</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCaseSensitive As Boolean = False</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCaseSensitive As Boolean = False</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <IsShared>0</IsShared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>BinCount</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <ItemType>String</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <ItemType>String</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>KeyCount</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>
