@@ -5,8 +5,10 @@ Inherits TestController
 		Sub InitializeTestGroups()
 		  Var group As TestGroup
 		  
-		  group = New CaseSensitiveTests(Self, "Case Sensitive BetterDictionary")
-		  group = New CaseInsensitiveTests(Self, "Case Insensitive BetterDictionary")
+		  group = New BetterDictionaryCaseSensitiveTests(Self, _
+		  "Case Sensitive BetterDictionary")
+		  group = New BetterDictionaryCaseInsensitiveTests(Self, _
+		  "Case Insensitive BetterDictionary")
 		  
 		End Sub
 	#tag EndEvent

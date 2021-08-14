@@ -2,7 +2,7 @@
 <RBProject version="2021r2.1" FormatVersion="2" MinIDEVersion="20070100">
 <block type="Module" ID="670492671">
  <ObjName>BetterDictionary</ObjName>
- <ObjContainerID>472795135</ObjContainerID>
+ <ObjContainerID>0</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>Dictionary</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -373,6 +373,40 @@
   <ItemParams></ItemParams>
   <ItemResult>Iterator</ItemResult>
  </Method>
+ <Method>
+  <ItemName>TextValue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>Retrieves the value associated with [key] converted to `Text`.</CodeDescription>
+  <PartID>1497284607</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function TextValue(key As Variant) As Text</SourceLine>
+   <SourceLine>/// Retrieves the value associated with [key] converted to `Text`.</SourceLine>
+   <SourceLine>///</SourceLine>
+   <SourceLine>/// Will fail if the value associated with [key] is not `Text`.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If CaseSensitive Then</SourceLine>
+   <SourceLine>// We _may_ need to encode the key.</SourceLine>
+   <SourceLine>Return Super.Value(EncodeKey(key)).StringValue.ToText</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>// We store `String` keys as `Text`.</SourceLine>
+   <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
+   <SourceLine>Return Super.Value(AsText(key)).StringValue.ToText</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return Super.Value(key).StringValue.ToText</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>key As Variant</ItemParams>
+  <ItemResult>Text</ItemResult>
+ </Method>
  <Property>
   <ItemName>CaseSensitive</ItemName>
   <Compatibility></Compatibility>
@@ -380,7 +414,7 @@
   <PartID>220927999</PartID>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Property CaseSensitive As Boolean</SourceLine>
+   <SourceLine>CaseSensitive As Boolean</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -460,6 +494,11 @@
    <ObjName>KeyCount</ObjName>
    <PropertyGroup>Behavior</PropertyGroup>
    <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>CaseSensitive</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>Boolean</ItemType>
   </ViewProperty>
  </ViewBehavior>
 </block>

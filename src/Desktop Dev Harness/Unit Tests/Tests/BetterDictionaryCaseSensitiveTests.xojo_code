@@ -1,5 +1,5 @@
 #tag Class
-Protected Class CaseSensitiveTests
+Protected Class BetterDictionaryCaseSensitiveTests
 Inherits TestGroup
 	#tag Event
 		Sub Setup()
@@ -189,6 +189,30 @@ Inherits TestGroup
 		  Assert.IsFalse(TestDictionary.Lookup("UPPERCASE STRING", 4) = "lowercase string:value")
 		  Assert.IsFalse(TestDictionary.Lookup("MIXEDCASE STRING", 5) = "MixedCase String:value")
 		  Assert.IsFalse(TestDictionary.Lookup("lowercase string", 6) = "UPPERCASE STRING:value")
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TextValueTest()
+		  Var bd As New BetterDictionary(True, _
+		  "key1" : "literal1", _
+		  "key2" : True)
+		  
+		  Var t1 As Text = "literal1"
+		  Var s1 As String = "literal1"
+		  
+		  // Should fail (as the value is a string literal).
+		  #Pragma BreakOnExceptions False
+		  Try
+		    Var v1 As Text = bd.Value("key1")
+		    Assert.Pass
+		  Catch e As TypeMismatchException
+		    Assert.Pass
+		  End Try
+		  #Pragma BreakOnExceptions Default
+		  
+		  Assert.IsTrue(bd.TextValue("key1") = "literal1")
 		  
 		End Sub
 	#tag EndMethod
