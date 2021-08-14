@@ -2,7 +2,7 @@
 <RBProject version="2021r2.1" FormatVersion="2" MinIDEVersion="20070100">
 <block type="Module" ID="670492671">
  <ObjName>BetterDictionary</ObjName>
- <ObjContainerID>0</ObjContainerID>
+ <ObjContainerID>431673343</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>Dictionary</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -47,9 +47,7 @@
   <PartID>6715391</PartID>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(caseSensitive As Boolean = True, ParamArray entries() As Pair)</SourceLine>
-   <SourceLine>Super.Constructor</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>Sub Constructor(caseSensitive As Boolean, ParamArray entries() As Pair)</SourceLine>
    <SourceLine>mCaseSensitive = caseSensitive</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>For Each entry As Pair In entries</SourceLine>
@@ -62,7 +60,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <IsShared>0</IsShared>
-  <ItemParams>caseSensitive As Boolean = True, ParamArray entries() As Pair</ItemParams>
+  <ItemParams>caseSensitive As Boolean, ParamArray entries() As Pair</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -406,6 +404,47 @@
   <IsShared>0</IsShared>
   <ItemParams>key As Variant</ItemParams>
   <ItemResult>Text</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>This is private to force users of the class to specify case sensitivity.</CodeDescription>
+  <PartID>1156792319</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(ParamArray entries() As Pair)</SourceLine>
+   <SourceLine>/// This is private to force users of the class to specify case sensitivity.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>#Pragma Unused entries</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>33</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>ParamArray entries() As Pair</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <PartID>1437796351</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor()</SourceLine>
+   <SourceLine>/// This is private to force users of the class to specify case sensitivity.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>33</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
  </Method>
  <Property>
   <ItemName>CaseSensitive</ItemName>

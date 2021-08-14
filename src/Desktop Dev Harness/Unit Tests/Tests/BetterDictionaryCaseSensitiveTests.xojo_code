@@ -42,7 +42,7 @@ Inherits TestGroup
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ConstructorTest()
+		Sub Constructor1Test()
 		  Var bd As New BetterDictionary( _
 		  True, _
 		  AsText("lowercase text") : "lowercase text:value", _
