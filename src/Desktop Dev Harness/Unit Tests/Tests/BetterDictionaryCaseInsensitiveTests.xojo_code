@@ -93,6 +93,55 @@ Inherits TestGroup
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub EquivalentToTest()
+		  Var d1 As New Dictionary("one" : 1)
+		  Var d2 As New Dictionary(2 : 2)
+		  
+		  Var bd1 As New BetterDictionary( _
+		  False, _
+		  "abc" : 1, _
+		  "DEF" : True, _
+		  "d1" : d1)
+		  
+		  // Same as `bd1`.
+		  Var bd2 As New BetterDictionary( _
+		  False, _
+		  "abc" : 1, _
+		  "DEF" : True, _
+		  "d1" : d1)
+		  
+		  // Entire key different from `bd1`.
+		  Var bd3 As New BetterDictionary( _
+		  False, _
+		  "abc" : 1, _
+		  "DEF" : True, _
+		  "d2" : d2)
+		  
+		  // Single key case different from `bd1`. Therefore equivalent.
+		  Var bd4 As New BetterDictionary( _
+		  False, _
+		  "abc" : 1, _
+		  "def" : True, _
+		  "d1" : d1)
+		  
+		  // Has an additional key to `bd1`.
+		  Var bd5 As New BetterDictionary( _
+		  False, _
+		  "abc" : 1, _
+		  "DEF" : True, _
+		  "d1" : d1, _
+		  "d2" : d2)
+		  
+		  Assert.IsTrue(bd1.EquivalentTo(bd2))
+		  Assert.IsTrue(bd1.EquivalentTo(bd4))
+		  
+		  Assert.IsFalse(bd1.EquivalentTo(bd3))
+		  Assert.IsFalse(bd1.EquivalentTo(bd5))
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub HasKeyTest()
 		  Var textKey1 As Text = "lowercase text"
 		  Var textKey2 As Text = "MixedCase Text"
@@ -200,17 +249,15 @@ Inherits TestGroup
 
 	#tag Method, Flags = &h0
 		Sub TextValueTest()
-		  Var bd As New BetterDictionary(False, _
+		  Var bd As New BetterDictionary(_
+		  False, _
 		  "key1" : "literal1", _
 		  "key2" : True)
-		  
-		  Var t1 As Text = "literal1"
-		  Var s1 As String = "literal1"
 		  
 		  // Should fail (as the value is a string literal).
 		  #Pragma BreakOnExceptions False
 		  Try
-		    Var v1 As Text = bd.Value("key1")
+		    Call bd.Value("key1")
 		    Assert.Pass
 		  Catch e As TypeMismatchException
 		    Assert.Pass

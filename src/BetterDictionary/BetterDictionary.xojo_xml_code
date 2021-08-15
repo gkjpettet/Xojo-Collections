@@ -446,6 +446,38 @@
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
  </Method>
+ <Method>
+  <ItemName>EquivalentTo</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <CodeDescription>True if this dictionary's keys and values are equivalent to [other].</CodeDescription>
+  <PartID>433102847</PartID>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function EquivalentTo(other As BetterDictionary) As Boolean</SourceLine>
+   <SourceLine>/// True if this dictionary's keys and values are equivalent to [other].</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>If other = Nil Then Return False</SourceLine>
+   <SourceLine>If Self.KeyCount &lt;&gt; other.KeyCount Then Return False</SourceLine>
+   <SourceLine>If Self.CaseSensitive &lt;&gt; other.CaseSensitive Then Return False</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Compare the keys.</SourceLine>
+   <SourceLine>For Each entry As DictionaryEntry In Self</SourceLine>
+   <SourceLine>If Not other.HasKey(entry.Key) Then Return False</SourceLine>
+   <SourceLine>If entry.Value &lt;&gt; other.Value(entry.Key) Then Return False</SourceLine>
+   <SourceLine>Next entry</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Return True</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <IsShared>0</IsShared>
+  <ItemParams>other As BetterDictionary</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
  <Property>
   <ItemName>CaseSensitive</ItemName>
   <Compatibility></Compatibility>
