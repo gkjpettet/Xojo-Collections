@@ -2,7 +2,7 @@
 <RBProject version="2021r2.1" FormatVersion="2" MinIDEVersion="20070100">
 <block type="Module" ID="670492671">
  <ObjName>BetterDictionary</ObjName>
- <ObjContainerID>431673343</ObjContainerID>
+ <ObjContainerID>472795135</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>Dictionary</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -382,18 +382,28 @@
    <SourceLine>Function TextValue(key As Variant) As Text</SourceLine>
    <SourceLine>/// Retrieves the value associated with [key] converted to `Text`.</SourceLine>
    <SourceLine>///</SourceLine>
-   <SourceLine>/// Will fail if the value associated with [key] is not `Text`.</SourceLine>
+   <SourceLine>/// Will fail if the value associated with [key] cannot be </SourceLine>
+   <SourceLine>/// converted to `Text`.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Var modifiedKey As Variant</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>If CaseSensitive Then</SourceLine>
-   <SourceLine>// We _may_ need to encode the key.</SourceLine>
-   <SourceLine>Return Super.Value(EncodeKey(key)).StringValue.ToText</SourceLine>
+   <SourceLine>// We may need to encode this key.</SourceLine>
+   <SourceLine>modifiedKey = EncodeKey(key)</SourceLine>
    <SourceLine>Else</SourceLine>
-   <SourceLine>// We store `String` keys as `Text`.</SourceLine>
    <SourceLine>If key.Type = Variant.TypeString Then</SourceLine>
-   <SourceLine>Return Super.Value(AsText(key)).StringValue.ToText</SourceLine>
+   <SourceLine>// We store `String` keys as `Text`.</SourceLine>
+   <SourceLine>modifiedKey = AsText(key)</SourceLine>
    <SourceLine>Else</SourceLine>
-   <SourceLine>Return Super.Value(key).StringValue.ToText</SourceLine>
+   <SourceLine>modifiedKey = key</SourceLine>
    <SourceLine>End If</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Var v As Variant = Super.Value(modifiedKey)</SourceLine>
+   <SourceLine>If v.Type = Variant.TypeText Then</SourceLine>
+   <SourceLine>Return v</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>Return v.StringValue.ToText</SourceLine>
    <SourceLine>End If</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Function</SourceLine>
