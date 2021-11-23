@@ -4,11 +4,13 @@ Begin Toolbar UnitTestsToolbar
 		Caption = "Run Tests"
 		HelpTag = ""
 		Style = 0
+		Icon = 404318207
 	End
 	Begin ToolButton RunUntilFailButton
 		Caption = "Run Until Fail"
 		HelpTag = ""
 		Style = 0
+		Icon = 1079799807
 	End
 	Begin ToolButton ToolItem3
 		Caption = "Untitled"
@@ -19,6 +21,7 @@ Begin Toolbar UnitTestsToolbar
 		Caption = "Stop Tests"
 		HelpTag = ""
 		Style = 0
+		Icon = 2105194495
 	End
 	Begin ToolButton ToolItem1
 		Caption = "Untitled"
@@ -34,6 +37,7 @@ Begin Toolbar UnitTestsToolbar
 		Caption = "Export Results"
 		HelpTag = ""
 		Style = 0
+		Icon = 964167679
 	End
 End
 #tag EndToolbar
